@@ -106,7 +106,7 @@ export default function UserForm({
       ) : (
         <p className="link">
           <strong>Already have a TravelFlow account?</strong>{" "}
-          <Link to={"/"}>Login here!</Link>
+          <Link to={"/login"}>Login here!</Link>
         </p>
       )}
     </form>
