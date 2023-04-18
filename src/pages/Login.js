@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import UserForm from "../components/UserForm";
 import Message from "../components/Message";
 import "../sass/Login.scss";
-import { AuthenticationContext } from "../contexts/Authentication";
+import { AuthenticationContext } from "../contexts/AuthenticationContext";
 
 export default function Login() {
   const [username, setUsername] = useState("");

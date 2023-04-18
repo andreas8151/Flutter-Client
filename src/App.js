@@ -6,8 +6,9 @@ import "./sass/App.scss";
 import Dummy from "./pages/Dummy";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import { AuthenticationProvider } from "./contexts/Authentication";
+
 import Navbar from "./components/Navbar";
+import { AuthenticationProvider } from "./contexts/AuthenticationContext";
 
 function App() {
   return (
