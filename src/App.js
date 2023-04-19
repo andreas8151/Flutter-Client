@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Navbar from "./components/Navbar";
 import Users from "./pages/Users";
+import Feed from "./pages/Feed";
 
 function App() {
   return (
@@ -30,7 +31,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/users" element={<Users />} />
           <Route path="/users/:username" element={<Dummy />} />
-          <Route path="/feed" element={<Dummy />} />
+          <Route path="/feed" element={<Feed />} />
         </Routes>
       </BrowserRouter>
     </AuthenticationProvider>
