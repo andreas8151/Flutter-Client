@@ -1,0 +1,6 @@
+@import "./variables";
+
+@mixin transparentBackground {
+  background-color: $transparentWhite;
+  backdrop-filter: blur(24px);
+}
