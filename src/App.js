@@ -21,10 +21,10 @@ function App() {
           <header className="Appheader">
             <h1>TravelFlow</h1>
             <Navbar>
+              <Link to="/feed">Feed</Link>
+              <Link to="/users">Users</Link>
+              <Link to="/users/:username">Profile</Link>
               <Link to="/login">Login</Link>
-              <Link to="/register">Register</Link>
-              <Link to="/user/:username">Profile</Link>
-              <Link to="/feed"></Link>
             </Navbar>
           </header>
           <Routes>
