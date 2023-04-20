@@ -1,9 +1,10 @@
+@import "./mixin";
+
 .postBox {
+  @include transparentBackground;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  background-color: #fefefe9f;
-  backdrop-filter: blur(24px);
   padding: 32px;
   border-radius: 16px;
   &_description {

@@ -1,3 +1,5 @@
+@import "./mixin";
+
 .mainSection {
   position: fixed;
   width: 100vw;
@@ -14,8 +16,7 @@
   padding: 32px;
 
   & .notLoggedIn {
-    background-color: #fefefe9f;
-    backdrop-filter: blur(24px);
+    @include transparentBackground;
     padding: 8px 16px;
     border-radius: 16px;
   }
