@@ -13,15 +13,24 @@ export function AuthenticationProvider({ children }) {
           credentials: "include",
         });
 
+        if (response.status === 401) {
+          localStorage.removeItem("loggedInUser");
+          setIsLoggedIn(false);
+        }
+
         if (response.status === 400) {
+          localStorage.removeItem("loggedInUser");
           setIsLoggedIn(false);
         }
 
         if (response.status === 200) {
-          const serverObject = await response.text();
-          setIsLoggedIn(serverObject);
+          const responseObject = await response.json();
+          localStorage.setItem("loggedInUser", JSON.stringify(responseObject));
+          setIsLoggedIn(true);
         }
       } catch (FetchError) {
+        localStorage.removeItem("loggedInUser");
+        console.log(FetchError);
         setIsLoggedIn(false);
       }
       setLoading(false);
@@ -30,9 +39,11 @@ export function AuthenticationProvider({ children }) {
   }, []);
 
   if (loading) {
-    <section className="mainSection">
-      <h3>Loading...</h3>
-    </section>;
+    return (
+      <section className="mainSection">
+        <h3>Loading...</h3>
+      </section>
+    );
   }
 
   return (
