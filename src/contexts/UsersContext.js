@@ -1,52 +1,25 @@
 import { createContext, useEffect, useState } from "react";
+import { getUsers } from "../functions/getUsers";
 export const UsersContext = createContext();
 
 export function UsersProvider({ children }) {
   const [users, setUsers] = useState();
   const [loading, setLoading] = useState(true);
 
-  useEffect(
-    function () {
-      async function getUsers() {
-        try {
-          const response = await fetch("http://localhost:5050/users/allUsers", {
-            method: "GET",
-            headers: {
-              "content-type": "application/json",
-            },
-            credentials: "include",
-          });
+  useEffect(function () {
+    async function fetchUsers() {
+      const usersList = await getUsers();
+      setUsers(usersList);
 
-          if (response.status === 404) {
-            setUsers([]);
-          }
-
-          if (response.status === 200) {
-            const serverObject = await response.json();
-            setUsers(serverObject.users);
-          }
-        } catch (error) {
-          setUsers(false);
-        }
-        setLoading(false);
-      }
-      getUsers();
-    },
-    [users]
-  );
+      setLoading(false);
+    }
+    fetchUsers();
+  }, []);
 
   if (loading) {
     return (
       <section className="mainSection">
         <h3>Loading...</h3>
-      </section>
-    );
-  }
-
-  if (!users) {
-    return (
-      <section className="mainSection">
-        <h3>Failed to connect to server</h3>
       </section>
     );
   }
