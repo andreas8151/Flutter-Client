@@ -1,9 +1,10 @@
+@import "./mixin";
+
 #homepage {
   align-items: center;
 
   & .homepageMessage {
-    background-color: #fefefe9f;
-    backdrop-filter: blur(24px);
+    @include transparentBackground;
     font-size: 1.2em;
     border-radius: 16px;
     width: 450px;

@@ -1,0 +1,27 @@
+@import "./mixin";
+
+.postBox {
+  @include transparentBackground;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 32px;
+  border-radius: 16px;
+  &_description {
+    text-align: center;
+  }
+  &_details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    &_likes {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+    }
+  }
+  &_comment {
+    display: flex;
+    flex-direction: column;
+  }
+}

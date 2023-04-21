@@ -1,0 +1,24 @@
+@import "./variables";
+
+@mixin transparentBackground {
+  background-color: $transparentWhite;
+  backdrop-filter: blur(24px);
+  border-radius: 16px;
+}
+
+@mixin buttonEffect {
+  background-color: $white;
+  border-radius: 8px;
+  padding: 4px 8px;
+  border: none;
+  font-size: 1em;
+  font-weight: 400;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
+  &:active {
+    transform: translateY(1px);
+    scale: 0.98;
+  }
+}

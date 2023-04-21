@@ -1,3 +1,5 @@
+@import "./mixin";
+
 .mainSection {
   position: fixed;
   width: 100vw;
@@ -11,5 +13,11 @@
   background-repeat: no-repeat;
   background-position: center center;
   background-attachment: fixed;
-  background-blend-mode: luminosity;
+  padding: 32px;
+
+  & .notLoggedIn {
+    @include transparentBackground;
+    padding: 8px 16px;
+    border-radius: 16px;
+  }
 }
