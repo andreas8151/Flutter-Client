@@ -43,6 +43,14 @@ export function UsersProvider({ children }) {
     );
   }
 
+  if (!users) {
+    return (
+      <section className="mainSection">
+        <h3>Failed to connect to server</h3>
+      </section>
+    );
+  }
+
   return (
     <UsersContext.Provider value={{ users, setUsers }}>
       {children}
