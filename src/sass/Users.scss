@@ -1,0 +1,27 @@
+@import "./mixin";
+
+.usersList {
+  @include transparentBackground;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 32px;
+  min-width: 300px;
+  border-radius: 16px;
+  &_user {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 32px;
+    &_name {
+      cursor: pointer;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+    &_button {
+      @include buttonEffect;
+      width: 80px;
+    }
+  }
+}
