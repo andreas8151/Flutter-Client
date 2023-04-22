@@ -9,7 +9,7 @@ import "./sass/App.scss";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/navbar/Navbar";
 import Users from "./pages/Users";
 import Feed from "./pages/Feed";
 

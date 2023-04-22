@@ -1,0 +1,14 @@
+@import "./mixin";
+@import "./variables";
+
+#feed {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  justify-content: center;
+  @media only screen and (max-width: $M) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  @media only screen and (max-width: $XS) {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}

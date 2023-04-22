@@ -4,9 +4,10 @@ import { AuthenticationContext } from "../contexts/AuthenticationContext";
 import "../sass/Users.scss";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { getUsers } from "../functions/getUsers";
 
 export default function Users() {
-  const { users } = useContext(UsersContext);
+  const { users, setUsers } = useContext(UsersContext);
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthenticationContext);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const navigate = useNavigate();
@@ -54,16 +55,19 @@ export default function Users() {
         return;
       }
       if (response.status === 200) {
+        const usersList = await getUsers();
+        setUsers(usersList);
         return;
       }
       const responseMessage = await response.text();
       Swal.fire({ icon: "error", text: responseMessage });
       return;
     } catch (FetchError) {
-      Swal.fire({
+      await Swal.fire({
         icon: "error",
         text: "Something went wrong, failed to connect to server!",
       });
+      setIsLoggedIn("serverError");
       return;
     }
   }
@@ -89,16 +93,19 @@ export default function Users() {
         return;
       }
       if (response.status === 200) {
+        const usersList = await getUsers();
+        setUsers(usersList);
         return;
       }
       const responseMessage = await response.text();
       Swal.fire({ icon: "error", text: responseMessage });
       return;
     } catch (FetchError) {
-      Swal.fire({
+      await Swal.fire({
         icon: "error",
         text: "Something went wrong, failed to connect to server!",
       });
+      setIsLoggedIn("serverError");
       return;
     }
   }
