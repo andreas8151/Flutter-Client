@@ -1,8 +1,29 @@
+@import "./mixin";
+@import "./buttons/Buttons.scss";
+
 .mainSection {
+  z-index: 2;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  margin: 32px;
   gap: 32px;
-  padding-bottom: 32px;
   align-items: center;
+  padding: 32px;
+  overflow-y: scroll;
+
+  & .notLoggedIn,
+  .serverError {
+    @include transparentBackground;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px 32px;
+    border-radius: 16px;
+
+    &_refresh {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
 }
