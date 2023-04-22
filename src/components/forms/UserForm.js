@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import "../sass/UserForm.scss";
+import "../../sass/forms/UserForm.scss";
 
 export default function UserForm({
   heading,
@@ -106,7 +106,7 @@ export default function UserForm({
       ) : (
         <p className="link">
           <strong>Already have a TravelFlow account?</strong>{" "}
-          <Link to={"/"}>Login here!</Link>
+          <Link to={"/login"}>Login here!</Link>
         </p>
       )}
     </form>
