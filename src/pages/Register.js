@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import UserForm from "../components/UserForm";
 import Swal from "sweetalert2";
+import { AuthenticationContext } from "../contexts/AuthenticationContext";
 
 export default function Register() {
   const [username, setUsername] = useState("");
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
+  const { setIsLoggedIn } = useContext(AuthenticationContext);
 
   async function register(event) {
     event.preventDefault();
@@ -60,10 +62,11 @@ export default function Register() {
         return;
       }
     } catch (FetchError) {
-      Swal.fire({
+      await Swal.fire({
         icon: "error",
         text: "Something went wrong, failed to connect to server!",
       });
+      setIsLoggedIn("serverError");
       return;
     }
   }

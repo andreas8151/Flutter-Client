@@ -57,10 +57,11 @@ export default function Login() {
         return;
       }
     } catch (FetchError) {
-      Swal.fire({
+      await Swal.fire({
         icon: "error",
         text: "Something went wrong, failed to connect to server!",
       });
+      setIsLoggedIn("serverError");
       return;
     }
   }

@@ -31,7 +31,7 @@ export function AuthenticationProvider({ children }) {
       } catch (FetchError) {
         localStorage.removeItem("loggedInUser");
         console.log(FetchError);
-        setIsLoggedIn(false);
+        setIsLoggedIn("serverError");
       }
       setLoading(false);
     }
@@ -42,6 +42,24 @@ export function AuthenticationProvider({ children }) {
     return (
       <section className="mainSection">
         <h3>Loading...</h3>
+      </section>
+    );
+  }
+
+  if (isLoggedIn === "serverError") {
+    return (
+      <section className="mainSection">
+        <div className="serverError">
+          <h2>Failed to connect to server</h2>
+          <h3
+            className="serverError_refresh"
+            onClick={() => {
+              window.location.reload();
+            }}
+          >
+            Click to refresh page or come back later!
+          </h3>
+        </div>
       </section>
     );
   }
