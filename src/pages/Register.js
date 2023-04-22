@@ -1,21 +1,24 @@
-import { useState } from "react";
-import Message from "../components/Message";
-import UserForm from "../components/UserForm";
+import { useContext, useState } from "react";
+import UserForm from "../components/forms/UserForm";
+import Swal from "sweetalert2";
+import { AuthenticationContext } from "../contexts/AuthenticationContext";
 
 export default function Register() {
   const [username, setUsername] = useState("");
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
-  const [message, setMessage] = useState("");
+  const { setIsLoggedIn } = useContext(AuthenticationContext);
 
   async function register(event) {
     event.preventDefault();
     let response = null;
 
     if (password1 !== password2) {
-      return setMessage(
-        "Passwords does not match, please change to register an account!"
-      );
+      Swal.fire({
+        icon: "error",
+        text: "Passwords does not match, please change to register an account!",
+      });
+      return;
     }
 
     const user = { username: username, password: password1 };
@@ -30,26 +33,41 @@ export default function Register() {
         body: JSON.stringify(user),
       });
 
-      if (response.status === 500) {
-        return setMessage("Something went wrong, internal server error!");
-      }
+      const responseMessage = await response.text();
 
       if (response.status === 400) {
-        const serverMessage = await response.text();
-        return setMessage(serverMessage);
+        Swal.fire({
+          icon: "error",
+          text: responseMessage,
+        });
+        return;
       }
 
       if (response.status === 409) {
-        const serverMessage = await response.text();
-        return setMessage(serverMessage);
+        Swal.fire({
+          icon: "error",
+          text: responseMessage,
+        });
+        return;
       }
 
       if (response.status === 201) {
-        const serverMessage = await response.text();
-        return setMessage(serverMessage);
+        Swal.fire({
+          icon: "success",
+          text: responseMessage,
+        });
+        setUsername("");
+        setPassword1("");
+        setPassword2("");
+        return;
       }
     } catch (FetchError) {
-      return setMessage("Something went wrong, failed to connect to server!");
+      await Swal.fire({
+        icon: "error",
+        text: "Something went wrong, failed to connect to server!",
+      });
+      setIsLoggedIn("serverError");
+      return;
     }
   }
 
@@ -68,13 +86,6 @@ export default function Register() {
         autoCompletePassword={"new-password"}
         buttonValue={"Register"}
       />
-      {message && (
-        <Message
-          className="homepageMessage"
-          message={message}
-          setMessage={setMessage}
-        />
-      )}
     </section>
   );
 }

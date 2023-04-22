@@ -1,14 +1,13 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import UserForm from "../components/UserForm";
-import Message from "../components/Message";
+import UserForm from "../components/forms/UserForm";
 import "../sass/Login.scss";
-import { AuthenticationContext } from "../contexts/Authentication";
+import { AuthenticationContext } from "../contexts/AuthenticationContext";
+import Swal from "sweetalert2";
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
   const { setIsLoggedIn } = useContext(AuthenticationContext);
   const navigate = useNavigate();
 
@@ -30,30 +29,40 @@ export default function Login() {
       );
 
       if (response.status === 400) {
-        const serverMessage = await response.text();
-        return setMessage(serverMessage);
-      }
-      if (response.status === 500) {
-        return setMessage("Something went wrong, internal server error!");
+        const responseMessage = await response.text();
+        Swal.fire({
+          icon: "error",
+          text: responseMessage,
+        });
+        return;
       }
 
       if (response.status === 404) {
-        return setMessage(
-          "Invalid credentials, please double check the username and password!"
-        );
+        const responseMessage = await response.text();
+        Swal.fire({
+          icon: "error",
+          text: responseMessage,
+        });
+        return;
       }
 
       if (response.status === 200) {
         const serverObject = await response.json();
+        localStorage.setItem("loggedInUser", JSON.stringify(serverObject));
 
-        localStorage.setItem("LoggedInUser", JSON.stringify(serverObject));
-        localStorage.setItem("isLoggedIn", JSON.stringify(true));
         setIsLoggedIn(true);
-
+        setUsername("");
+        setPassword("");
         navigate("/feed");
+        return;
       }
     } catch (FetchError) {
-      return setMessage("Something went wrong, failed to connect to server!");
+      await Swal.fire({
+        icon: "error",
+        text: "Something went wrong, failed to connect to server!",
+      });
+      setIsLoggedIn("serverError");
+      return;
     }
   }
 
@@ -69,13 +78,6 @@ export default function Login() {
         autoCompletePassword={"current-password"}
         buttonValue={"Login"}
       />
-      {message && (
-        <Message
-          className="homepageMessage"
-          message={message}
-          setMessage={setMessage}
-        />
-      )}
     </section>
   );
 }
