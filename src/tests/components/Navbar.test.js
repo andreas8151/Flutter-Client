@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { Link } from "react-router-dom";
 import App from "../../App";
-import Navbar from "../../components/Navbar";
+import Navbar from "../../components/navbar/Navbar";
 
 test("renders navbar with visible link children", () => {
   render(
