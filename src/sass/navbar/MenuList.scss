@@ -1,7 +1,6 @@
 @import "../mixin";
 
 .menuList {
-  @include transparentBackground;
   position: absolute;
   z-index: 20;
   bottom: 0;
@@ -11,9 +10,11 @@
   gap: 16px;
   visibility: hidden;
   opacity: 0;
+  background-color: $greenTransparent;
+  color: $white;
   transform: translate(-100%, 100%);
   overflow-y: scroll;
-  transition: all 700ms ease-in-out;
+  transition: all 600ms ease-in-out;
   width: 40vw !important;
   max-width: 250px;
   height: calc(100vh - 96px);
