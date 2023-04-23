@@ -2,9 +2,8 @@
 
 .usersList {
   @include transparentBackground;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  @include gridLayout;
+  gap: 16px 32px;
   padding: 32px;
   min-width: 300px;
   border-radius: 16px;
@@ -18,10 +17,6 @@
       &:hover {
         opacity: 0.8;
       }
-    }
-    &_button {
-      @include buttonEffect;
-      width: 80px;
     }
   }
 }
