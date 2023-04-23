@@ -10,3 +10,8 @@
     }
   }
 }
+
+.functionButton {
+  @include buttonEffect;
+  width: 85px;
+}
