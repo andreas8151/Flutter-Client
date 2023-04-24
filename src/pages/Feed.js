@@ -3,7 +3,7 @@ import { AuthenticationContext } from "../contexts/AuthenticationContext";
 import PostBox from "../components/PostBox";
 import { Link } from "react-router-dom";
 import { getFeeds } from "../functions/getFeeds";
-import "../sass/Feed.scss";
+import "../sass/feed/Feed.scss";
 
 export default function Feed() {
   const [feeds, setFeeds] = useState([]);
@@ -17,7 +17,6 @@ export default function Feed() {
         if (loggedIn) {
           setFeeds(feedList);
         }
-        console.log(feeds);
       }
       fetchFeeds();
     },

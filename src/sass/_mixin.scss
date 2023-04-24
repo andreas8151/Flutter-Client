@@ -3,7 +3,6 @@
 @mixin transparentBackground {
   background-color: $transparentWhite;
   backdrop-filter: blur(24px);
-  border-radius: 16px;
 }
 
 @mixin buttonEffect {

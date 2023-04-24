@@ -6,6 +6,7 @@ export async function getFeeds() {
     });
 
     if (response.status === 401) {
+      localStorage.removeItem("loggedInUser");
       return { loggedIn: false };
     }
 
@@ -18,6 +19,7 @@ export async function getFeeds() {
       return { loggedIn: true, feedList: responseMessage.posts };
     }
   } catch (FetchError) {
+    localStorage.removeItem("loggedInUser");
     return { loggedIn: "serverError" };
   }
 }

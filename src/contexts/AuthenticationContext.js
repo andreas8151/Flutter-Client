@@ -16,24 +16,30 @@ export function AuthenticationProvider({ children }) {
         if (response.status === 401) {
           localStorage.removeItem("loggedInUser");
           setIsLoggedIn(false);
+          setLoading(false);
+          return;
         }
 
         if (response.status === 400) {
           localStorage.removeItem("loggedInUser");
           setIsLoggedIn(false);
+          setLoading(false);
+          return;
         }
 
         if (response.status === 200) {
           const responseObject = await response.json();
           localStorage.setItem("loggedInUser", JSON.stringify(responseObject));
           setIsLoggedIn(true);
+          setLoading(false);
+          return;
         }
       } catch (FetchError) {
         localStorage.removeItem("loggedInUser");
-        console.log(FetchError);
         setIsLoggedIn("serverError");
+        setLoading(false);
+        return;
       }
-      setLoading(false);
     }
     checkLoggedIn();
   }, []);

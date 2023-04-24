@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import "../sass/UserForm.scss";
+import "../../sass/forms/UserForm.scss";
 
 export default function UserForm({
   heading,

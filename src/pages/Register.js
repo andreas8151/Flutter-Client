@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import UserForm from "../components/UserForm";
+import UserForm from "../components/forms/UserForm";
 import Swal from "sweetalert2";
 import { AuthenticationContext } from "../contexts/AuthenticationContext";
 

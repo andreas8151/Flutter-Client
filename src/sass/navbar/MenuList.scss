@@ -1,0 +1,57 @@
+@import "../mixin";
+
+.menuList {
+  @include transparentBackground;
+  position: absolute;
+  z-index: 20;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  visibility: hidden;
+  opacity: 0;
+  transform: translate(-100%, 100%);
+  overflow-y: scroll;
+  transition: all 700ms ease-in-out;
+  width: 40vw !important;
+  max-width: 250px;
+  height: calc(100vh - 96px);
+  padding: 16px 32px 32px;
+  list-style: none;
+
+  @media only screen and (max-width: $XS) {
+    width: 100% !important;
+    max-width: none;
+    height: fit-content;
+    text-align: center;
+  }
+  &.visible {
+    visibility: visible;
+    opacity: 1;
+    transform: translate(0, 100%);
+  }
+  &_item {
+    display: flex;
+    width: 100%;
+    cursor: pointer;
+    @media only screen and (max-width: $XS) {
+      justify-content: center;
+    }
+    &.icons {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: flex-end;
+      min-height: 40px;
+      height: 100%;
+      width: 100%;
+      cursor: auto;
+    }
+    &_link {
+      width: 100%;
+      text-decoration: none;
+      color: inherit;
+    }
+  }
+}
