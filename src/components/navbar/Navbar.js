@@ -77,33 +77,6 @@ export default function Navbar({ children }) {
           </div>
         )}
       </div>
-      {/* <nav className="menu">
-        <IoMenu
-          onClick={toggleMenu}
-          className={`menuIcon ${menu ? "visible" : ""}`}
-        />
-        <IoClose
-          onClick={toggleMenu}
-          className={`menuIcon ${cross ? "visible" : ""}`}
-        />
-
-        <ul className={`menuList ${menuList}`}>
-          <li className="menuListItem" onClick={hideMenu}>
-            <Link to="/feed">Feed</Link>
-          </li>
-          <li className="menuListItem" onClick={hideMenu}>
-            <Link to="/users">Users</Link>
-          </li>
-        </ul>
-      </nav> */}
-      {/* <h1
-        className="companyLogo"
-        onClick={function () {
-          redirect("login");
-        }}
-      >
-        TravelFlow
-      </h1> */}
     </header>
   );
 }
