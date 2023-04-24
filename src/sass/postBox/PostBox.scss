@@ -12,6 +12,10 @@
   padding: 32px;
   border-radius: 16px;
 
+  &_username {
+    cursor: pointer;
+  }
+
   &_description {
     display: flex;
     justify-content: center;
