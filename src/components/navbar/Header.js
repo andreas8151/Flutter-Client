@@ -8,7 +8,7 @@ import MenuList from "./MenuList";
 //Style
 import "../../sass/navbar/Header.scss";
 
-export default function Header({ children }) {
+export default function Header() {
   const [menuList, setMenuList] = useState("");
   const [menu, setMenu] = useState(true);
   const [cross, setCross] = useState(false);
