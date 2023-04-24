@@ -1,5 +1,5 @@
 //Dependencies
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 //Global context
 import { AuthenticationProvider } from "./contexts/AuthenticationContext";
 import { UsersProvider } from "./contexts/UsersContext";
