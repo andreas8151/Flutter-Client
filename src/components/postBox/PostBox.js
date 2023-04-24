@@ -35,7 +35,7 @@ export default function PostBox({ post, setFeeds, index }) {
       ) : (
         <ShowComments comments={post.comments} redirect={redirect} />
       )}
-      <AddCommentForm postID={post._id} index={index} />
+      <AddCommentForm postID={post._id} setFeeds={setFeeds} />
     </div>
   );
 }
