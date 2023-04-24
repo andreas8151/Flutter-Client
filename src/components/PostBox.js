@@ -4,12 +4,14 @@ import { AuthenticationContext } from "../contexts/AuthenticationContext";
 import Swal from "sweetalert2";
 import { getFeeds } from "../functions/getFeeds";
 import "../sass/PostBox.scss";
+import { getAllFeeds } from "../functions/getAllFeeds";
 
-export default function PostBox({ post, setFeeds }) {
+export default function PostBox({ post, setFeeds, showButtons }) {
   const navigate = useNavigate();
   const creation = new Date(post.creation);
   const { setIsLoggedIn } = useContext(AuthenticationContext);
   const [loggedInUser, setLoggedInUser] = useState(null);
+  const [postContent, setPostContent] = useState(post.content);
 
   useEffect(function () {
     setLoggedInUser(JSON.parse(localStorage.getItem("loggedInUser")).username);
@@ -140,6 +142,89 @@ export default function PostBox({ post, setFeeds }) {
     }
   }
 
+  async function deletePost(postID) {
+    try {
+      const response = await fetch("http://localhost:5050/posts/delete", {
+        method: "DELETE",
+        headers: {
+          "content-type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ id: postID }),
+      });
+
+      if (response.status === 401) {
+        await Swal.fire({
+          icon: "error",
+          text: "Please login to be able to delete this post!",
+        });
+        localStorage.removeItem("loggedInUser");
+        setIsLoggedIn(false);
+      }
+      if (response.status === 200) {
+        const { loggedIn, feedList } = await getAllFeeds();
+        await setIsLoggedIn(loggedIn);
+        if (loggedIn) {
+          setFeeds(feedList);
+        }
+        return;
+      } else {
+        const responseMessage = await response.text();
+        Swal.fire({ icon: "error", text: responseMessage });
+      }
+    } catch (error) {
+      console.error(error);
+      await Swal.fire({
+        icon: "error",
+        text: "Something went wrong, failed to connect to server!",
+      });
+      setIsLoggedIn("serverError");
+    }
+  }
+
+  async function updatePost(event, postID) {
+    event.preventDefault();
+
+    try {
+      const response = await fetch(`http://localhost:5050/posts`, {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ postText: postContent, id: postID }),
+      });
+
+      if (response.status === 401) {
+        await Swal.fire({
+          icon: "error",
+          text: "Please login to be able to edit posts!",
+        });
+        localStorage.removeItem("loggedInUser");
+        setIsLoggedIn(false);
+        return;
+      }
+
+      if (response.status === 200) {
+        const { loggedIn, feedList } = await getAllFeeds();
+        await setIsLoggedIn(loggedIn);
+        if (loggedIn) {
+          setFeeds(feedList);
+          setPostContent("");
+        }
+        return;
+      }
+    } catch (error) {
+      console.error(error);
+      await Swal.fire({
+        icon: "error",
+        text: "Something went wrong, failed to connect to server!",
+      });
+      setIsLoggedIn("serverError");
+      return;
+    }
+  }
+
   function redirect(username) {
     navigate(`/users/${username}`);
   }
@@ -160,6 +245,28 @@ export default function PostBox({ post, setFeeds }) {
           {creation.toLocaleString()}
         </span>
         <div className="postBox_details_likes">
+          {showButtons && (
+            <div className="postBox_buttons">
+              <textarea
+                className="postBox_text_input"
+                onChange={(e) => setPostContent(e.target.value)}
+                value={postContent}
+              ></textarea>
+              <button
+                className="postBox_edit_button"
+                onClick={(event) => updatePost(event, post._id)}
+              >
+                Edit
+              </button>
+
+              <button
+                onClick={() => deletePost(post._id)}
+                className="postBox_delete_button"
+              >
+                Delete
+              </button>
+            </div>
+          )}
           <p className="postBox_details_likes_amount">{post.likes.length}</p>
           {post.likes.length === 0 ? null : (
             <ul className="postBox_details_likes_list">
@@ -178,6 +285,7 @@ export default function PostBox({ post, setFeeds }) {
               })}
             </ul>
           )}
+
           {post.likes.includes(loggedInUser) ? (
             <button
               className="postBox_details_likes_button unlike"
