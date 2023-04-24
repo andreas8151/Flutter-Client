@@ -1,6 +1,8 @@
-import React, { useContext, useState, useEffect } from "react";
-import { AuthenticationContext } from "../contexts/AuthenticationContext";
+import React, { useContext, useState, useEffect } from "react"; // useContext
 import PostBox from "../components/PostBox";
+import { getAllFeeds } from "../functions/getAllFeeds";
+import { AuthenticationContext } from "../contexts/AuthenticationContext";
+import { Link } from "react-router-dom";
 
 export default function Profile() {
   const [postText, setPostText] = useState("");
@@ -26,31 +28,29 @@ export default function Profile() {
     }
   }
 
-  useEffect(function () {
-    getFeeds();
-  }, []);
-
-  async function getFeeds() {
-    try {
-      const response = await fetch(`http://localhost:5050/posts/${username}`, {
-        method: "GET",
-        credentials: "include",
-      });
-
-      console.log(response);
-      const data = await response.json();
-      console.log(data);
-
-      setFeeds(data);
-    } catch (FetchError) {
-      return console.log(FetchError);
-    }
-  }
+  useEffect(
+    function () {
+      async function fetchAllFeeds() {
+        const { loggedIn, feedList } = await getAllFeeds();
+        await setIsLoggedIn(loggedIn);
+        if (loggedIn) {
+          setFeeds(feedList);
+        }
+      }
+      fetchAllFeeds();
+    },
+    [setIsLoggedIn]
+  );
 
   if (!isLoggedIn) {
     return (
       <section className="mainSection">
-        <h2 className="notLoggedIn">Please login to access your feeds</h2>
+        <div className="notLoggedIn">
+          <h2>Please login to access your feeds</h2>
+          <h3>
+            <Link to={"/login"}>Go back to homepage!</Link>
+          </h3>
+        </div>
       </section>
     );
   }
@@ -67,9 +67,15 @@ export default function Profile() {
 
       <section className="mainSection">
         {feeds.map(function (post, index) {
-          console.log(post.username, username);
           if (post.username === username) {
-            return <PostBox key={index} post={post} getFeeds={getFeeds} />;
+            return (
+              <PostBox
+                key={index}
+                post={post}
+                setFeeds={setFeeds}
+                showButtons={true}
+              />
+            );
           } else {
             return <PostBox key={index} post={post} />;
           }
