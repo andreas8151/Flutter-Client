@@ -6,9 +6,9 @@ import MenuIcons from "./MenuIcons";
 import MenuList from "./MenuList";
 
 //Style
-import "../../sass/navbar/Navbar.scss";
+import "../../sass/navbar/Header.scss";
 
-export default function Navbar({ children }) {
+export default function Header() {
   const [menuList, setMenuList] = useState("");
   const [menu, setMenu] = useState(true);
   const [cross, setCross] = useState(false);
@@ -77,33 +77,6 @@ export default function Navbar({ children }) {
           </div>
         )}
       </div>
-      {/* <nav className="menu">
-        <IoMenu
-          onClick={toggleMenu}
-          className={`menuIcon ${menu ? "visible" : ""}`}
-        />
-        <IoClose
-          onClick={toggleMenu}
-          className={`menuIcon ${cross ? "visible" : ""}`}
-        />
-
-        <ul className={`menuList ${menuList}`}>
-          <li className="menuListItem" onClick={hideMenu}>
-            <Link to="/feed">Feed</Link>
-          </li>
-          <li className="menuListItem" onClick={hideMenu}>
-            <Link to="/users">Users</Link>
-          </li>
-        </ul>
-      </nav> */}
-      {/* <h1
-        className="companyLogo"
-        onClick={function () {
-          redirect("login");
-        }}
-      >
-        TravelFlow
-      </h1> */}
     </header>
   );
 }
