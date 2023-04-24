@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthenticationContext } from "../contexts/AuthenticationContext";
-import PostBox from "../components/PostBox";
+import PostBox from "../components/postBox/PostBox";
 import { Link } from "react-router-dom";
 import { getFeeds } from "../functions/getFeeds";
 import "../sass/feed/Feed.scss";
@@ -36,10 +36,22 @@ export default function Feed() {
     );
   }
 
+  if (feeds.length === 0) {
+    return (
+      <section className="mainSection">
+        <div className="noPosts">
+          <h2>Users you are following have not posted anything yet!</h2>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="mainSection" id="feed">
       {feeds.map(function (post, index) {
-        return <PostBox key={index} post={post} setFeeds={setFeeds} />;
+        return (
+          <PostBox key={index} post={post} setFeeds={setFeeds} index={index} />
+        );
       })}
     </section>
   );
