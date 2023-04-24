@@ -6,9 +6,9 @@ import MenuIcons from "./MenuIcons";
 import MenuList from "./MenuList";
 
 //Style
-import "../../sass/navbar/Navbar.scss";
+import "../../sass/navbar/Header.scss";
 
-export default function Navbar({ children }) {
+export default function Header({ children }) {
   const [menuList, setMenuList] = useState("");
   const [menu, setMenu] = useState(true);
   const [cross, setCross] = useState(false);
