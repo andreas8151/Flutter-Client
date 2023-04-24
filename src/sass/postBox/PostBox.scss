@@ -1,0 +1,117 @@
+@import "../mixin";
+@import "./AddCommentForm.scss";
+@import "./ShowComments.scss";
+@import "./PostLikes.scss";
+
+.postBox {
+  @include transparentBackground;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: max-content;
+  padding: 32px;
+  border-radius: 16px;
+
+  &_username {
+    cursor: pointer;
+  }
+
+  &_description {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    overflow-y: scroll;
+    align-items: center;
+    text-align: center;
+    font-size: 1.2em;
+  }
+
+  &_details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+    &_date {
+      font-size: 0.9em;
+      font-weight: 500;
+    }
+  }
+
+  &_commentList {
+    z-index: 30;
+    position: relative;
+    padding: 10px 0 0;
+    margin-bottom: 10px;
+    &_details {
+      width: 100%;
+      &[open] .summaryArrow {
+        transform: rotate(90deg);
+        margin-left: 14px;
+      }
+    }
+    &_summary {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      z-index: 30;
+      width: fit-content;
+      font-size: 0.85em;
+      font-weight: 700;
+      cursor: pointer;
+      &::marker {
+        content: none;
+      }
+
+      &::-webkit-details-marker {
+        display: none;
+      }
+
+      &:hover > .summaryArrow {
+        margin-left: 14px;
+      }
+      & .summaryArrow {
+        display: inline-flex;
+        transition: 0.4s;
+        margin-top: 3px;
+        margin-left: 8px;
+        font-size: 1.2em;
+      }
+    }
+
+    &_list {
+      position: absolute;
+      z-index: 30;
+      height: fit-content;
+      max-height: 140px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      backdrop-filter: blur(24px);
+      bottom: 0;
+      transform: translate(0, calc(100% + 8px));
+      width: 100%;
+      list-style-type: none;
+      background-color: $darkGreenTransparent;
+      color: $white;
+      border-radius: 8px;
+      overflow-y: scroll;
+      height: fit-content;
+      &_item {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        z-index: 30;
+        background-color: $lightGreenTransparent;
+        padding: 8px 12px 12px;
+        &_user {
+          font-size: 1em;
+          cursor: pointer;
+        }
+        &_comment {
+          font-size: 0.9em;
+        }
+      }
+    }
+  }
+}

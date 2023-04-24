@@ -5,6 +5,7 @@ import "../sass/Users.scss";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { getUsers } from "../functions/getUsers";
+import Button from "../components/buttons/Button";
 
 export default function Users() {
   const { users, setUsers } = useContext(UsersContext);
@@ -140,23 +141,19 @@ export default function Users() {
                 loggedInUser.username ? null : loggedInUser.following.includes(
                   user.username
                 ) ? (
-                <button
-                  className="usersList_user_button"
-                  onClick={function (event) {
+                <Button
+                  title={"Unfollow"}
+                  handler={function (event) {
                     unFollowUser(user.username);
                   }}
-                >
-                  Unfollow
-                </button>
+                />
               ) : (
-                <button
-                  className="usersList_user_button"
-                  onClick={function (event) {
+                <Button
+                  title={"Follow"}
+                  handler={function (event) {
                     followUser(user.username);
                   }}
-                >
-                  Follow
-                </button>
+                />
               )}
             </div>
           );
