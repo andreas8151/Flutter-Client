@@ -58,9 +58,10 @@ export default function PostDelete({ setFeeds, post }) {
   }
 
   return (
-    <div className="postDelete">
+    <div className="postBox_postDelete">
       {username !== loggedInUser ? null : (
         <ButtonIcon
+          className={"deletePost"}
           handleClick={() => deletePost(post._id)}
           icon={<MdDeleteOutline />}
         />
