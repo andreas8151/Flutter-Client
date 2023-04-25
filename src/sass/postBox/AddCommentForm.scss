@@ -1,0 +1,36 @@
+.addCommentForm {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  &_headingLine {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0 8px;
+    &_label {
+      font-weight: 600;
+      width: fit-content;
+    }
+    &_words {
+      font-size: 0.9em;
+    }
+  }
+  &_textarea {
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    padding: 8px;
+    resize: none;
+    background-color: $lightGreenTransparent;
+    color: $white;
+    &::placeholder {
+      color: $white;
+    }
+  }
+  &_button {
+    @include buttonEffect;
+    background-color: $darkGreenTransparent;
+    color: $white;
+  }
+}

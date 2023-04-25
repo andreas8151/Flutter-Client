@@ -17,6 +17,7 @@ export async function getUsers() {
       return serverObject.users;
     }
   } catch (error) {
+    localStorage.removeItem("loggedInUser");
     return "serverError";
   }
 }

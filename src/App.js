@@ -1,5 +1,5 @@
 //Dependencies
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 //Global context
 import { AuthenticationProvider } from "./contexts/AuthenticationContext";
 import { UsersProvider } from "./contexts/UsersContext";
@@ -9,7 +9,7 @@ import "./sass/App.scss";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Navbar from "./components/navbar/Navbar";
+import Header from "./components/navbar/Header";
 import Users from "./pages/Users";
 import Feed from "./pages/Feed";
 
@@ -18,15 +18,8 @@ function App() {
     <AuthenticationProvider>
       <UsersProvider>
         <BrowserRouter>
-          <header className="Appheader">
-            <h1>TravelFlow</h1>
-            <Navbar>
-              <Link to="/feed">Feed</Link>
-              <Link to="/users">Users</Link>
-              <Link to="/users/:username">Profile</Link>
-              <Link to="/login">Login</Link>
-            </Navbar>
-          </header>
+          <Header />
+
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/login" element={<Login />} />

@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import UserForm from "../components/UserForm";
+import UserForm from "../components/forms/UserForm";
 import "../sass/Login.scss";
 import { AuthenticationContext } from "../contexts/AuthenticationContext";
 import Swal from "sweetalert2";

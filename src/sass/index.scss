@@ -8,19 +8,29 @@
 }
 
 body {
-  margin: 0;
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   width: 100vw;
   height: 100vh;
+  background-image: url("https://t3.ftcdn.net/jpg/05/65/47/14/240_F_565471410_96EBeT9HbCJsJk1vywT9CoBkx1pKI2P1.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  overflow: hidden;
   color: $darkGreen;
+}
+
+h1 {
+  font-family: "Arvo", serif;
+  font-size: 2.2em;
+  text-align: center;
 }
 
 h2 {
   font-family: "Arvo", serif;
   font-size: 2em;
-  text-align: center;
 }
 
 h3 {
