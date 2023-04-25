@@ -30,7 +30,8 @@ export default function Profile() {
     [username, loggedInUser]
   );
 
-  async function postFetch() {
+  async function postFetch(event) {
+    event.preventDefault();
     try {
       const result = await fetch("http://localhost:5050/posts/add", {
         method: "POST",
@@ -40,10 +41,14 @@ export default function Profile() {
         body: JSON.stringify({ postText }),
         credentials: "include",
       });
-      const data = await result.json();
-      console.log(data);
+
+      if (result.status === 200) {
+        const { feedList } = await getAllFeeds(username);
+        setFeeds(feedList);
+        return;
+      }
     } catch (error) {
-      console.log(error);
+      return { error: error };
     }
   }
 
@@ -72,7 +77,7 @@ export default function Profile() {
       <h2>{username}</h2>
 
       {username !== loggedInUser ? null : (
-        <form className="addCommentForm" onSubmit={postFetch}>
+        <form className="addCommentForm" onSubmit={(event) => postFetch(event)}>
           <label className="addCommentForm_heading">Create Post</label>
           <textarea
             className="addCommentForm_textarea"
