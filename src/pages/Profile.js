@@ -45,6 +45,7 @@ export default function Profile() {
       if (result.status === 200) {
         const { feedList } = await getAllFeeds(username);
         setFeeds(feedList);
+        setPostText("");
         return;
       }
     } catch (error) {
