@@ -1,15 +1,34 @@
-import React, { useContext, useState, useEffect } from "react"; // useContext
+import React, { useState, useEffect } from "react"; // useContext
 import PostBox from "../components/postBox/PostBox";
 import { getAllFeeds } from "../functions/getAllFeeds";
-import { AuthenticationContext } from "../contexts/AuthenticationContext";
-import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 export default function Profile() {
   const [postText, setPostText] = useState("");
   const [feeds, setFeeds] = useState([]);
-  const { isLoggedIn, setIsLoggedIn } = useContext(AuthenticationContext);
 
-  const { username } = JSON.parse(localStorage.getItem("loggedInUser"));
+  const [loggedInUser, setLoggedInUser] = useState(null);
+
+  const { username } = useParams();
+
+  useEffect(function () {
+    if (localStorage.getItem("loggedInUser")) {
+      setLoggedInUser(
+        JSON.parse(localStorage.getItem("loggedInUser")).username
+      );
+    }
+  }, []);
+
+  useEffect(
+    function () {
+      async function fetchAllFeeds() {
+        const { feedList } = await getAllFeeds(username);
+        setFeeds(feedList);
+      }
+      fetchAllFeeds();
+    },
+    [username, loggedInUser]
+  );
 
   async function postFetch() {
     try {
@@ -28,59 +47,54 @@ export default function Profile() {
     }
   }
 
-  useEffect(
-    function () {
-      async function fetchAllFeeds() {
-        const { loggedIn, feedList } = await getAllFeeds();
-        await setIsLoggedIn(loggedIn);
-        if (loggedIn) {
-          setFeeds(feedList);
-        }
-      }
-      fetchAllFeeds();
-    },
-    [setIsLoggedIn]
-  );
-
-  if (!isLoggedIn) {
+  if (feeds === null) {
     return (
       <section className="mainSection">
-        <div className="notLoggedIn">
-          <h2>Please login to access your feeds</h2>
-          <h3>
-            <Link to={"/login"}>Go back to homepage!</Link>
-          </h3>
+        <div className="noPosts">
+          <h2>{username}</h2>
+          <h3>Loading...</h3>
+        </div>
+      </section>
+    );
+  }
+  if (feeds === `${username}, have not posted anything yet!`) {
+    return (
+      <section className="mainSection">
+        <div className="noPosts">
+          <h2>{feeds}</h2>
         </div>
       </section>
     );
   }
 
   return (
-    <>
-      <form onSubmit={postFetch}>
-        <label>Post</label>
-        <textarea
-          onChange={(event) => setPostText(event.target.value)}
-        ></textarea>
-        <button type="submit">Submit</button>
-      </form>
+    <section className="mainSection">
+      <h2>{username}</h2>
 
-      <section className="mainSection">
+      {username !== loggedInUser ? null : (
+        <form className="addCommentForm" onSubmit={postFetch}>
+          <label className="addCommentForm_heading">Create Post</label>
+          <textarea
+            className="addCommentForm_textarea"
+            onChange={(event) => setPostText(event.target.value)}
+          ></textarea>
+          <button className="addCommentForm_button" type="submit">
+            Submit
+          </button>
+        </form>
+      )}
+      <div className="mainSection" id="feed">
         {feeds.map(function (post, index) {
-          if (post.username === username) {
-            return (
-              <PostBox
-                key={index}
-                post={post}
-                setFeeds={setFeeds}
-                showButtons={true}
-              />
-            );
-          } else {
-            return <PostBox key={index} post={post} />;
-          }
+          return (
+            <PostBox
+              key={index}
+              post={post}
+              setFeeds={setFeeds}
+              showButtons={true}
+            />
+          );
         })}
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
