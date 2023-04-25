@@ -1,16 +1,26 @@
-/* import React from "react";
+import React from "react";
 import Swal from "sweetalert2";
 import { useContext, useEffect, useState } from "react";
 import { getAllFeeds } from "../../functions/getAllFeeds";
 import { AuthenticationContext } from "../../contexts/AuthenticationContext";
+import { useParams } from "react-router-dom";
+import ButtonIcon from "../buttons/ButtonIcon";
+import { MdEdit, MdCancel } from "react-icons/md";
 
-export default async function PostUpdate({ setFeeds, showButtons, post }) {
+export default function PostUpdate({ setFeeds, post }) {
   const { setIsLoggedIn } = useContext(AuthenticationContext);
   const [loggedInUser, setLoggedInUser] = useState(null);
-  const [postContent, setPostContent] = useState(post.content);
+  const [postContent, setPostContent] = useState(post.postText);
+  const { username } = useParams();
+
+  const [showEdit, setShowEdit] = useState(false);
 
   useEffect(function () {
-    setLoggedInUser(JSON.parse(localStorage.getItem("loggedInUser")).username);
+    if (localStorage.getItem("loggedInUser")) {
+      setLoggedInUser(
+        JSON.parse(localStorage.getItem("loggedInUser")).username
+      );
+    }
   }, []);
 
   async function updatePost(event, postID) {
@@ -37,16 +47,10 @@ export default async function PostUpdate({ setFeeds, showButtons, post }) {
       }
 
       if (response.status === 200) {
-        const { loggedIn, feedList } = await getAllFeeds();
-        await setIsLoggedIn(loggedIn);
-        if (loggedIn) {
-          setFeeds(feedList);
-          setPostContent("");
-        }
+        const { feedList } = await getAllFeeds(username);
+        setFeeds(feedList);
+        setShowEdit(false);
         return;
-      } else {
-        const responseMessage = await response.text();
-        Swal.fire({ icon: "error", text: responseMessage });
       }
     } catch (error) {
       console.error(error);
@@ -55,27 +59,44 @@ export default async function PostUpdate({ setFeeds, showButtons, post }) {
         text: "Something went wrong, failed to connect to server!",
       });
       setIsLoggedIn("serverError");
+      return;
     }
   }
 
   return (
-    <>
-      {showButtons && (
-        <div className="update_post">
+    <div className="postUpdate">
+      {username !== loggedInUser ? null : (
+        <div className="postBox_buttons">
+          {showEdit ? (
+            <ButtonIcon
+              handleClick={(event) => setShowEdit(false)}
+              icon={<MdCancel />}
+            />
+          ) : (
+            <ButtonIcon
+              handleClick={(event) => setShowEdit(true)}
+              icon={<MdEdit />}
+            />
+          )}
+        </div>
+      )}
+      {showEdit ? (
+        <form>
           <textarea
-            className="update_post_textarea"
+            className="addCommentForm_textarea"
             onChange={(e) => setPostContent(e.target.value)}
             value={postContent}
           ></textarea>
           <button
-            className="update_post_button"
+            className="addCommentForm_button"
             onClick={(event) => updatePost(event, post._id)}
           >
-            Edit
+            Edit Post
           </button>
-        </div>
+        </form>
+      ) : (
+        <p className="postBox_description">{post.postText}</p>
       )}
-    </>
+    </div>
   );
 }
- */
