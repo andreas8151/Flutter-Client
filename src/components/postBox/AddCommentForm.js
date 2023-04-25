@@ -2,11 +2,14 @@ import { useContext, useState } from "react";
 import Swal from "sweetalert2";
 import { AuthenticationContext } from "../../contexts/AuthenticationContext";
 import { getFeeds } from "../../functions/getFeeds";
+import { getAllFeeds } from "../../functions/getAllFeeds";
+import { useParams } from "react-router-dom";
 
 export default function AddCommentForm({ postID, setFeeds }) {
   const { setIsLoggedIn } = useContext(AuthenticationContext);
   const [words, setWords] = useState(0);
   const [text, setText] = useState("");
+  const { username } = useParams();
 
   async function addComment(event) {
     event.preventDefault();
@@ -33,6 +36,13 @@ export default function AddCommentForm({ postID, setFeeds }) {
       }
 
       if (response.status === 200) {
+        if (username) {
+          const { feedList } = await getAllFeeds(username);
+          setText("");
+          setWords(0);
+          setFeeds(feedList);
+          return;
+        }
         const { loggedIn, feedList } = await getFeeds();
         await setIsLoggedIn(loggedIn);
         setText("");
