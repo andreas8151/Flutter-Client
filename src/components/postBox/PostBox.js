@@ -3,8 +3,10 @@ import "../../sass/postBox/PostBox.scss";
 import AddCommentForm from "./AddCommentForm";
 import ShowComments from "./ShowComments";
 import PostLikes from "./PostLikes";
+import PostUpdate from "./PostUpdate";
+import PostDelete from "./PostDelete";
 
-export default function PostBox({ post, setFeeds, index }) {
+export default function PostBox({ post, setFeeds }) {
   const navigate = useNavigate();
   const creation = new Date(post.creation).toLocaleDateString([], {
     hour: "2-digit",
@@ -23,9 +25,11 @@ export default function PostBox({ post, setFeeds, index }) {
           redirect(post.username);
         }}
       >
-        {post.username}
+        <div className="postBox_username_title">{post.username}</div>
+        <PostDelete post={post} setFeeds={setFeeds} />
       </h3>
-      <p className="postBox_description">{post.postText}</p>
+      <PostUpdate post={post} setFeeds={setFeeds} />
+
       <div className="postBox_details">
         <span className="postBox_details_date">{creation}</span>
         <PostLikes post={post} setFeeds={setFeeds} redirect={redirect} />

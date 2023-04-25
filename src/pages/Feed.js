@@ -49,9 +49,7 @@ export default function Feed() {
   return (
     <section className="mainSection" id="feed">
       {feeds.map(function (post, index) {
-        return (
-          <PostBox key={index} post={post} setFeeds={setFeeds} index={index} />
-        );
+        return <PostBox key={index} post={post} setFeeds={setFeeds} />;
       })}
     </section>
   );

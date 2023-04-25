@@ -2,6 +2,11 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  &_heading {
+    display: flex;
+    justify-content: center;
+    backdrop-filter: blur(24px);
+  }
   &_headingLine {
     display: flex;
     flex-direction: row;

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { CgProfile } from "react-icons/cg";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthenticationContext } from "../../contexts/AuthenticationContext";
 import MenuIcons from "./MenuIcons";
 import MenuList from "./MenuList";
@@ -12,7 +12,7 @@ export default function Header() {
   const [menuList, setMenuList] = useState("");
   const [menu, setMenu] = useState(true);
   const [cross, setCross] = useState(false);
-  const [loggedInUser, setLoggedInUser] = useState();
+  const [loggedInUser, setLoggedInUser] = useState(null);
   const { isLoggedIn } = useContext(AuthenticationContext);
   const navigate = useNavigate();
 
@@ -68,12 +68,12 @@ export default function Header() {
         </h1>
         {!isLoggedIn ? null : (
           <div className="userSettingsIcon">
-            <CgProfile
-              className="userSettingsIcon_icon"
-              onClick={function () {
-                redirect(`user/${loggedInUser}`);
-              }}
-            />
+            <Link
+              className="userSettingsIcon_link"
+              to={`users/${loggedInUser}`}
+            >
+              <CgProfile className="userSettingsIcon_icon" />
+            </Link>
           </div>
         )}
       </div>
