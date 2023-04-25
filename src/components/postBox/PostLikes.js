@@ -4,13 +4,20 @@ import Swal from "sweetalert2";
 import { useContext, useEffect, useState } from "react";
 import { AuthenticationContext } from "../../contexts/AuthenticationContext";
 import { getFeeds } from "../../functions/getFeeds";
+import { useParams } from "react-router-dom";
+import { getAllFeeds } from "../../functions/getAllFeeds";
 
 export default function PostLikes({ post, setFeeds, redirect }) {
   const { setIsLoggedIn } = useContext(AuthenticationContext);
   const [loggedInUser, setLoggedInUser] = useState(null);
+  const { username } = useParams();
 
   useEffect(function () {
-    setLoggedInUser(JSON.parse(localStorage.getItem("loggedInUser")).username);
+    if (localStorage.getItem("loggedInUser")) {
+      setLoggedInUser(
+        JSON.parse(localStorage.getItem("loggedInUser")).username
+      );
+    }
   }, []);
 
   async function likePost(postID) {
@@ -34,6 +41,12 @@ export default function PostLikes({ post, setFeeds, redirect }) {
         return;
       }
       if (response.status === 200) {
+        if (username) {
+          const { feedList } = await getAllFeeds(username);
+          setFeeds(feedList);
+
+          return;
+        }
         const { loggedIn, feedList } = await getFeeds();
         await setIsLoggedIn(loggedIn);
         if (loggedIn) {
@@ -75,6 +88,12 @@ export default function PostLikes({ post, setFeeds, redirect }) {
         return;
       }
       if (response.status === 200) {
+        if (username) {
+          const { feedList } = await getAllFeeds(username);
+          setFeeds(feedList);
+
+          return;
+        }
         const { loggedIn, feedList } = await getFeeds();
         await setIsLoggedIn(loggedIn);
         if (loggedIn) {
