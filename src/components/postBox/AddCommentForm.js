@@ -94,6 +94,7 @@ export default function AddCommentForm({ postID, setFeeds }) {
           setWords(event.target.textLength);
           setText(event.target.value);
         }}
+        required
       />
       <button className="addCommentForm_button">Add comment</button>
     </form>
