@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react"; // useContext
-import PostBox from "../components/PostBox";
+import PostBox from "../components/postBox/PostBox";
 import { getAllFeeds } from "../functions/getAllFeeds";
 import { AuthenticationContext } from "../contexts/AuthenticationContext";
 import { Link } from "react-router-dom";
