@@ -25,7 +25,7 @@ export default function PostBox({ post, setFeeds }) {
           redirect(post.username);
         }}
       >
-        <div className="postBox_username_title">{post.username}</div>
+        {post.username}
         <PostDelete post={post} setFeeds={setFeeds} />
       </h3>
       <PostUpdate post={post} setFeeds={setFeeds} />
