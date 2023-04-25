@@ -1,14 +1,21 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "../../sass/postBox/PostBox.scss";
 import AddCommentForm from "./AddCommentForm";
 import ShowComments from "./ShowComments";
 import PostLikes from "./PostLikes";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthenticationContext } from "../../contexts/AuthenticationContext";
 import Swal from "sweetalert2";
 import { getAllFeeds } from "../../functions/getAllFeeds";
+import ButtonIcon from "../buttons/ButtonIcon";
+import { MdDeleteOutline, MdEdit, MdCancel } from "react-icons/md";
+import Button from "../buttons/Button";
 
-export default function PostBox({ post, setFeeds, index, showButtons }) {
+export default function PostBox({ post, setFeeds }) {
+  const { username } = useParams();
+
+  const [loggedInUser, setLoggedInUser] = useState(null);
+
   const navigate = useNavigate();
   const creation = new Date(post.creation).toLocaleDateString([], {
     hour: "2-digit",
@@ -16,7 +23,16 @@ export default function PostBox({ post, setFeeds, index, showButtons }) {
   });
 
   const { setIsLoggedIn } = useContext(AuthenticationContext);
-  const [postContent, setPostContent] = useState(post.content);
+  const [postContent, setPostContent] = useState(post.postText);
+  const [showEdit, setShowEdit] = useState(false);
+
+  useEffect(function () {
+    if (localStorage.getItem("loggedInUser")) {
+      setLoggedInUser(
+        JSON.parse(localStorage.getItem("loggedInUser")).username
+      );
+    }
+  }, []);
 
   function redirect(username) {
     navigate(`/users/${username}`);
@@ -42,11 +58,8 @@ export default function PostBox({ post, setFeeds, index, showButtons }) {
         setIsLoggedIn(false);
       }
       if (response.status === 200) {
-        const { loggedIn, feedList } = await getAllFeeds();
-        await setIsLoggedIn(loggedIn);
-        if (loggedIn) {
-          setFeeds(feedList);
-        }
+        const { feedList } = await getAllFeeds(username);
+        setFeeds(feedList);
         return;
       } else {
         const responseMessage = await response.text();
@@ -86,12 +99,9 @@ export default function PostBox({ post, setFeeds, index, showButtons }) {
       }
 
       if (response.status === 200) {
-        const { loggedIn, feedList } = await getAllFeeds();
-        await setIsLoggedIn(loggedIn);
-        if (loggedIn) {
-          setFeeds(feedList);
-          setPostContent("");
-        }
+        const { feedList } = await getAllFeeds(username);
+        setFeeds(feedList);
+        setShowEdit(false);
         return;
       }
     } catch (error) {
@@ -113,31 +123,48 @@ export default function PostBox({ post, setFeeds, index, showButtons }) {
           redirect(post.username);
         }}
       >
-        {post.username}
+        <div className="postBox_username_title">{post.username}</div>
+
+        {username !== loggedInUser ? null : (
+          <ButtonIcon
+            handleClick={() => deletePost(post._id)}
+            icon={<MdDeleteOutline />}
+          />
+        )}
       </h3>
-      {showButtons && (
+      {username !== loggedInUser ? null : (
         <div className="postBox_buttons">
+          {showEdit ? (
+            <ButtonIcon
+              handleClick={(event) => setShowEdit(false)}
+              icon={<MdCancel />}
+            />
+          ) : (
+            <ButtonIcon
+              handleClick={(event) => setShowEdit(true)}
+              icon={<MdEdit />}
+            />
+          )}
+        </div>
+      )}
+      {showEdit ? (
+        <form>
           <textarea
-            className="postBox_text_input"
+            className="addCommentForm_textarea"
             onChange={(e) => setPostContent(e.target.value)}
             value={postContent}
           ></textarea>
           <button
-            className="postBox_edit_button"
+            className="addCommentForm_button"
             onClick={(event) => updatePost(event, post._id)}
           >
-            Edit
+            Edit Post
           </button>
-
-          <button
-            onClick={() => deletePost(post._id)}
-            className="postBox_delete_button"
-          >
-            Delete
-          </button>
-        </div>
+        </form>
+      ) : (
+        <p className="postBox_description">{post.postText}</p>
       )}
-      <p className="postBox_description">{post.postText}</p>
+
       <div className="postBox_details">
         <span className="postBox_details_date">{creation}</span>
         <PostLikes post={post} setFeeds={setFeeds} redirect={redirect} />
