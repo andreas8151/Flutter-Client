@@ -19,6 +19,6 @@ export async function getAllFeeds(username) {
       return { feedList: responseMessage };
     }
   } catch (FetchError) {
-    return console.log(FetchError);
+    return { feedList: "serverError" };
   }
 }
