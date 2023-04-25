@@ -1,15 +1,23 @@
-/* import React from "react";
+import React from "react";
 import Swal from "sweetalert2";
 import { useContext, useEffect, useState } from "react";
 import { getAllFeeds } from "../../functions/getAllFeeds";
 import { AuthenticationContext } from "../../contexts/AuthenticationContext";
+import { useParams } from "react-router-dom";
+import ButtonIcon from "../buttons/ButtonIcon";
+import { MdDeleteOutline } from "react-icons/md";
 
-export default async function PostDelete({ setFeeds, showButtons, post }) {
+export default function PostDelete({ setFeeds, post }) {
   const { setIsLoggedIn } = useContext(AuthenticationContext);
   const [loggedInUser, setLoggedInUser] = useState(null);
+  const { username } = useParams();
 
   useEffect(function () {
-    setLoggedInUser(JSON.parse(localStorage.getItem("loggedInUser")).username);
+    if (localStorage.getItem("loggedInUser")) {
+      setLoggedInUser(
+        JSON.parse(localStorage.getItem("loggedInUser")).username
+      );
+    }
   }, []);
 
   async function deletePost(postID) {
@@ -32,11 +40,8 @@ export default async function PostDelete({ setFeeds, showButtons, post }) {
         setIsLoggedIn(false);
       }
       if (response.status === 200) {
-        const { loggedIn, feedList } = await getAllFeeds();
-        await setIsLoggedIn(loggedIn);
-        if (loggedIn) {
-          setFeeds(feedList);
-        }
+        const { feedList } = await getAllFeeds(username);
+        setFeeds(feedList);
         return;
       } else {
         const responseMessage = await response.text();
@@ -53,20 +58,13 @@ export default async function PostDelete({ setFeeds, showButtons, post }) {
   }
 
   return (
-    <>
-      <div className="delete_post">
-        {showButtons && (
-          <div className="postBox_buttons">
-            <button
-              onClick={() => deletePost(post._id)}
-              className="delete_post_button"
-            >
-              Delete
-            </button>
-          </div>
-        )}
-      </div>
-    </>
+    <div className="postDelete">
+      {username !== loggedInUser ? null : (
+        <ButtonIcon
+          handleClick={() => deletePost(post._id)}
+          icon={<MdDeleteOutline />}
+        />
+      )}
+    </div>
   );
 }
- */
