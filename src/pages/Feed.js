@@ -6,7 +6,7 @@ import { getFeeds } from "../functions/getFeeds";
 import "../sass/feed/Feed.scss";
 
 export default function Feed() {
-  const [feeds, setFeeds] = useState([]);
+  const [feeds, setFeeds] = useState(null);
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthenticationContext);
 
   useEffect(
@@ -31,6 +31,16 @@ export default function Feed() {
           <h3>
             <Link to={"/login"}>Go back to homepage!</Link>
           </h3>
+        </div>
+      </section>
+    );
+  }
+
+  if (feeds === null) {
+    return (
+      <section className="mainSection">
+        <div className="noPosts">
+          <h2>Loading...</h2>
         </div>
       </section>
     );
