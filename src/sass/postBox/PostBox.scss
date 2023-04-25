@@ -13,7 +13,17 @@
   border-radius: 16px;
 
   &_username {
-    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    &_title {
+      display: flex;
+      align-items: center;
+      font-size: 1.2em;
+      font-weight: 700;
+      cursor: pointer;
+    }
   }
 
   &_description {
