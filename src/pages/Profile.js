@@ -85,14 +85,7 @@ export default function Profile() {
       )}
       <div className="mainSection" id="feed">
         {feeds.map(function (post, index) {
-          return (
-            <PostBox
-              key={index}
-              post={post}
-              setFeeds={setFeeds}
-              showButtons={true}
-            />
-          );
+          return <PostBox key={index} post={post} setFeeds={setFeeds} />;
         })}
       </div>
     </section>
