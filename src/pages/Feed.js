@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthenticationContext } from "../contexts/AuthenticationContext";
-import PostBox from "../components/postBox/postBox/PostBox";
+import PostBox from "../components/postBox/PostBox";
 import { Link } from "react-router-dom";
 import { getFeeds } from "../functions/getFeeds";
 import "../sass/feed/Feed.scss";
