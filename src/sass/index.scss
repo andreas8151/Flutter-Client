@@ -11,44 +11,45 @@ body {
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  width: 100vw;
-  height: 100vh;
-  background-image: url("https://t3.ftcdn.net/jpg/05/65/47/14/240_F_565471410_96EBeT9HbCJsJk1vywT9CoBkx1pKI2P1.jpg");
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center center;
-  background-attachment: fixed;
-  overflow: hidden;
-  color: $darkGreen;
 }
 
 h1 {
-  font-family: "Arvo", serif;
-  font-size: 2.2em;
+  font-family: "sans-serif";
+  font-size: 2.6em;
   text-align: center;
+  color: aliceblue;
 }
 
 h2 {
-  font-family: "Arvo", serif;
+  font-family: "sans-serif";
   font-size: 2em;
+  color: aliceblue;
 }
 
 h3 {
-  font-family: "Arvo", serif;
+  font-family: "sans-serif";
   font-size: 1.6em;
-  text-align: center;
+  padding-bottom: 10px;
   font-style: italic;
+
   & a {
     color: inherit;
   }
 }
 
 h4 {
-  font-family: "Arvo", serif;
+  font-family: "sans-serif";
+
   font-size: 1.4em;
 }
 
 h5 {
-  font-family: "Arvo", serif;
+  font-family: "sans-serif";
+  color: rgba(14, 5, 14, 0.695);
+  margin: 10px;
+  margin-left: 0;
+  font-weight: 600;
   font-size: 1.2em;
 }

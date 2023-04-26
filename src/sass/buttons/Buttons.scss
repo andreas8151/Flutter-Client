@@ -1,6 +1,5 @@
 .button {
   color: inherit;
-
   &_icon {
     min-width: 40px;
     cursor: pointer;
@@ -13,5 +12,13 @@
 
 .functionButton {
   @include buttonEffect;
+  background-color: rgb(26, 101, 113);
+  color: rgb(255, 255, 255);
   width: 85px;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-2px);
+    background-color: rgb(0, 0, 0);
+  }
 }

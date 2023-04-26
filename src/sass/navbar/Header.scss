@@ -9,7 +9,6 @@
   width: 100%;
 
   & .relativeHeader {
-    @include transparentBackground;
     position: relative;
     z-index: 10;
     display: flex;
@@ -17,7 +16,7 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: 48px;
+    padding: 20px;
 
     @media only screen and (max-width: $XS) {
       padding: 24px 16px;
