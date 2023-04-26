@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react"; // useContext
 import PostBox from "../components/postBox/PostBox";
 import { getAllFeeds } from "../functions/getAllFeeds";
 import { useParams } from "react-router-dom";
+import "../sass/Profile.scss";
 
 export default function Profile() {
-  const [postText, setPostText] = useState("");
-  const [feeds, setFeeds] = useState([]);
-
-  const [loggedInUser, setLoggedInUser] = useState(null);
-
   const { username } = useParams();
+  const [postText, setPostText] = useState("");
+  const [feeds, setFeeds] = useState(null);
+  const [loggedInUser, setLoggedInUser] = useState(null);
+  const [words, setWords] = useState(0);
 
   useEffect(function () {
     if (localStorage.getItem("loggedInUser")) {
@@ -27,11 +27,12 @@ export default function Profile() {
       }
       fetchAllFeeds();
     },
-    [username, loggedInUser]
+    [username]
   );
 
   async function postFetch(event) {
     event.preventDefault();
+
     try {
       const result = await fetch("http://localhost:5050/posts/add", {
         method: "POST",
@@ -46,6 +47,7 @@ export default function Profile() {
         const { feedList } = await getAllFeeds(username);
         setFeeds(feedList);
         setPostText("");
+        setWords(0);
         return;
       }
     } catch (error) {
@@ -63,37 +65,54 @@ export default function Profile() {
       </section>
     );
   }
-  if (feeds === `${username}, have not posted anything yet!`) {
-    return (
-      <section className="mainSection">
-        <div className="noPosts">
-          <h2>{feeds}</h2>
-        </div>
-      </section>
-    );
-  }
 
   return (
-    <section className="mainSection">
-      <h2>{username}</h2>
-
-      {username !== loggedInUser ? null : (
-        <form className="addCommentForm" onSubmit={(event) => postFetch(event)}>
-          <label className="addCommentForm_heading">Create Post</label>
-          <textarea
-            className="addCommentForm_textarea"
-            onChange={(event) => setPostText(event.target.value)}
-          ></textarea>
-          <button className="addCommentForm_button" type="submit">
-            Submit
-          </button>
-        </form>
-      )}
-      <div className="mainSection" id="feed">
-        {feeds.map(function (post, index) {
-          return <PostBox key={index} post={post} setFeeds={setFeeds} />;
-        })}
+    <section className="mainSection" id="profile">
+      <div className="userProfile">
+        <h2>{username}</h2>
+        {username !== loggedInUser ? null : (
+          <form className="addPostForm" onSubmit={postFetch}>
+            <label className="addPostForm_heading" htmlFor="postText">
+              Create Post
+            </label>
+            <div className="addPostForm_textBox">
+              <span className="addPostForm_textBox_words">{words} / 500</span>
+              <textarea
+                className="addPostForm_textBox_textarea"
+                id="postText"
+                maxLength={500}
+                rows={4}
+                placeholder="Post text..."
+                value={postText}
+                onChange={(event) => {
+                  setPostText(event.target.value);
+                  setWords(event.target.textLength);
+                }}
+                required
+              />
+            </div>
+            <button className="addPostForm_button" type="submit">
+              Submit
+            </button>
+          </form>
+        )}
       </div>
+
+      {feeds === "noPosts" ? (
+        <div className="noPosts">
+          {username !== loggedInUser ? (
+            <h3>{username} have not posted anything yet!</h3>
+          ) : (
+            <h3>You have not posted anything yet!</h3>
+          )}
+        </div>
+      ) : (
+        <div className="profilePosts">
+          {feeds.map(function (post, index) {
+            return <PostBox key={index} post={post} setFeeds={setFeeds} />;
+          })}
+        </div>
+      )}
     </section>
   );
 }

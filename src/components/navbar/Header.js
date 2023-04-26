@@ -12,21 +12,15 @@ export default function Header() {
   const [menuList, setMenuList] = useState("");
   const [menu, setMenu] = useState(true);
   const [cross, setCross] = useState(false);
-  const [loggedInUser, setLoggedInUser] = useState(null);
   const { isLoggedIn } = useContext(AuthenticationContext);
   const navigate = useNavigate();
 
-  useEffect(function () {
-    async function getUsername() {
-      if (isLoggedIn) {
-        const username = await JSON.parse(localStorage.getItem("loggedInUser"))
-          .username;
-
-        setLoggedInUser(username);
-      }
-    }
-    getUsername();
-  }, []);
+  let loggedInUser = null;
+  if (isLoggedIn) {
+    loggedInUser = JSON.parse(localStorage.getItem("loggedInUser")).username;
+  } else {
+    loggedInUser = false;
+  }
 
   function toggleMenu() {
     if (menu) {
@@ -46,6 +40,16 @@ export default function Header() {
 
   function redirect(endpoint) {
     navigate(`/${endpoint}`);
+  }
+
+  if (loggedInUser === null) {
+    return (
+      <section className="mainSection">
+        <div className="noPosts">
+          <h2>Loading...</h2>
+        </div>
+      </section>
+    );
   }
 
   return (

@@ -13,16 +13,24 @@
   border-radius: 16px;
 
   &_username {
+    position: relative;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
+    width: 100%;
+    font-size: 2em;
+    font-weight: 700;
+    cursor: pointer;
+  }
 
-    &_title {
-      display: flex;
-      align-items: center;
-      font-size: 1.2em;
-      font-weight: 700;
-      cursor: pointer;
+  &_postDelete {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+    height: 30px;
+    transition: all 600ms ease-in-out;
+    &:hover {
+      transform: translate(50%, -50%) rotate(180deg);
     }
   }
 
@@ -34,6 +42,37 @@
     align-items: center;
     text-align: center;
     font-size: 1.2em;
+
+    &_postEdit {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: translate(50%, 50%);
+      width: 30px;
+      height: 30px;
+      transition: all 600ms ease-in-out;
+    }
+    &_form {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+
+      &_textarea {
+        @include formTextarea;
+      }
+
+      &_button {
+        @include buttonEffect;
+        font-size: 0.8em;
+      }
+    }
+
+    &_text {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
   }
 
   &_details {

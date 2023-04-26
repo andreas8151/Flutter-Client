@@ -10,8 +10,7 @@ export async function getAllFeeds(username) {
     }
 
     if (response.status === 404) {
-      const responseMessage = await response.text();
-      return { feedList: responseMessage };
+      return { feedList: "noPosts" };
     }
 
     if (response.status === 200) {
