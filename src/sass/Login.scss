@@ -4,11 +4,13 @@
   align-items: center;
 
   & .homepageMessage {
+    @include transparentBackground;
     font-size: 1.2em;
     border-radius: 16px;
     width: 450px;
     padding: 32px;
     font-weight: bold;
+
     text-align: center;
   }
 }

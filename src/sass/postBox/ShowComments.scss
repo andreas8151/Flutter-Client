@@ -1,35 +1,75 @@
 .commentsList {
+  z-index: 30;
+  position: relative;
   padding: 10px 0 0;
   margin-bottom: 10px;
-
   &_details {
     width: 100%;
+    &[open] .summaryArrow {
+      transform: rotate(90deg);
+      margin-left: 14px;
+    }
+  }
+  &_summary {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    z-index: 30;
+    width: fit-content;
+    font-size: 0.85em;
+    font-weight: 700;
+    cursor: pointer;
+    &::marker {
+      content: none;
+    }
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &:hover > .summaryArrow {
+      margin-left: 14px;
+    }
+    & .summaryArrow {
+      display: inline-flex;
+      transition: 0.4s;
+      margin-top: 3px;
+      margin-left: 8px;
+      font-size: 1.2em;
+    }
   }
 
   &_list {
+    position: absolute;
+    z-index: 30;
+    height: fit-content;
+    max-height: 140px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 2px;
+    backdrop-filter: blur(24px);
+    bottom: 0;
+    transform: translate(0, calc(100% + 8px));
+    width: 100%;
+    list-style-type: none;
+    background-color: $darkGreenTransparent;
     color: $white;
-
+    border-radius: 8px;
+    overflow-y: scroll;
+    height: fit-content;
     &_item {
       display: flex;
       flex-direction: column;
-      border-bottom: 2px solid rgb(255, 255, 255);
-      border-left: 2px solid rgb(68, 152, 255);
-      border-radius: 5px;
-      padding-left: 8px;
-      padding-bottom: 8px;
+      gap: 4px;
+      z-index: 30;
+      background-color: $lightGreenTransparent;
+      padding: 8px 12px 12px;
       &_user {
         font-size: 1em;
-        color: rgb(160, 100, 172);
         cursor: pointer;
       }
       &_comment {
-        color: black;
-        padding: 6px;
-        padding-left: 8px;
-        font-size: 1.1em;
+        font-size: 0.9em;
       }
     }
   }

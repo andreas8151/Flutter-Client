@@ -2,6 +2,7 @@
 @import "../variables";
 
 #feed {
+  @include gridLayout;
   justify-content: center;
   align-items: start;
 }
