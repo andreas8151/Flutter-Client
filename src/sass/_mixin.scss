@@ -1,49 +1,26 @@
 @import "./variables";
 
 @mixin transparentBackground {
-  background-color: $transparentWhite;
   backdrop-filter: blur(24px);
-}
-
-@mixin formTextarea {
-  outline: none;
-  border: none;
-  border-radius: 8px;
-  padding: 8px;
-  resize: none;
-  background-color: $lightGreenTransparent;
-  color: $white;
-  &::placeholder {
-    color: $white;
-  }
+  background-color: rgba(4, 1, 1, 0.191);
 }
 
 @mixin buttonEffect {
-  width: 100%;
-  background-color: $greenTransparent;
-  color: $white;
   border-radius: 8px;
-  padding: 6px 8px;
+  padding: 4px 8px;
   border: none;
   font-size: 1em;
   font-weight: 600;
   cursor: pointer;
   &:hover {
-    opacity: 0.8;
-  }
-  &:active {
-    transform: translateY(1px);
-    scale: 0.98;
+    background-color: rgb(51, 115, 212);
   }
 }
 
 @mixin gridLayout {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 32px;
+  grid-template-columns: repeat(minmax(0, 1fr));
   grid-auto-rows: 1fr;
-  width: 100%;
-  margin-bottom: 32px;
   @media only screen and (max-width: $M) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }

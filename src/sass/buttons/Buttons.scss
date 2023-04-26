@@ -1,52 +1,24 @@
 .button {
   color: inherit;
-
   &_icon {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    width: 40px;
-    max-height: 40px;
+    min-width: 40px;
     cursor: pointer;
     & svg {
+      width: 40px;
       font-size: 2.6em;
-      max-width: 40px;
-    }
-    &.deletePost {
-      justify-content: flex-end;
-      width: 30px;
-      height: 30px;
-      & svg {
-        font-size: 1.6em !important;
-        width: 30px;
-        height: 30px;
-      }
-    }
-    &.editPost {
-      justify-content: flex-end;
-      width: 30px;
-      height: 30px;
-      transition: all 600ms ease-in-out;
-
-      &:hover {
-        transform: rotate(-45deg);
-      }
-      & svg {
-        font-size: 1.6em !important;
-        width: 30px;
-        height: 30px;
-      }
-      &.cross {
-        transform: rotate(0);
-        &:hover {
-          transform: rotate(90deg);
-        }
-      }
     }
   }
 }
 
 .functionButton {
   @include buttonEffect;
+  background-color: rgb(26, 101, 113);
+  color: rgb(255, 255, 255);
   width: 85px;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-2px);
+    background-color: rgb(0, 0, 0);
+  }
 }

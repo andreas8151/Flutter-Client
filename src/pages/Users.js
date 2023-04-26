@@ -75,7 +75,7 @@ export default function Users() {
 
   async function unFollowUser(user) {
     try {
-      const response = await fetch("https://flutter-server.onrender.com/following/unFollow", {
+      const response = await fetch("https://flutter-t4zu.onrender.com//following/unFollow", {
         method: "DELETE",
         headers: {
           "content-type": "application/json",

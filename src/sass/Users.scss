@@ -1,9 +1,8 @@
 @import "./mixin";
 
 .usersList {
-  @include transparentBackground;
   @include gridLayout;
-  gap: 16px 64px;
+  gap: 16px 32px;
   padding: 32px;
   min-width: 300px;
   border-radius: 16px;
@@ -13,6 +12,8 @@
     justify-content: space-between;
     gap: 32px;
     &_name {
+      border-bottom: 1px solid #000;
+      color: rgba(0, 0, 1, 0.85);
       cursor: pointer;
       &:hover {
         opacity: 0.8;
