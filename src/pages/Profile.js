@@ -34,7 +34,7 @@ export default function Profile() {
     event.preventDefault();
 
     try {
-      const result = await fetch("http://localhost:5050/posts/add", {
+      const result = await fetch("https://flutter-server.onrender.com/posts/add", {
         method: "POST",
         headers: {
           "content-type": "application/json",

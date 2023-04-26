@@ -1,12 +1,15 @@
 export async function getUsers() {
   try {
-    const response = await fetch("http://localhost:5050/users/allUsers", {
-      method: "GET",
-      headers: {
-        "content-type": "application/json",
-      },
-      credentials: "include",
-    });
+    const response = await fetch(
+      "https://flutter-server.onrender.com/users/allUsers",
+      {
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+        },
+        credentials: "include",
+      }
+    );
 
     if (response.status === 404) {
       return [];

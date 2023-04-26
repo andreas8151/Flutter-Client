@@ -37,7 +37,7 @@ export default function Users() {
 
   async function followUser(user) {
     try {
-      const response = await fetch("http://localhost:5050/following/follow", {
+      const response = await fetch("https://flutter-server.onrender.com/following/follow", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -75,7 +75,7 @@ export default function Users() {
 
   async function unFollowUser(user) {
     try {
-      const response = await fetch("http://localhost:5050/following/unFollow", {
+      const response = await fetch("https://flutter-server.onrender.com/following/unFollow", {
         method: "DELETE",
         headers: {
           "content-type": "application/json",
