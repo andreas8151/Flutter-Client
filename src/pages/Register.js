@@ -24,7 +24,7 @@ export default function Register() {
     const user = { username: username, password: password1 };
 
     try {
-      response = await fetch("http://localhost:5050/authentication/register", {
+      response = await fetch("https://flutter-server.onrender.com/authentication/register", {
         method: "POST",
         headers: {
           "content-type": "application/json",

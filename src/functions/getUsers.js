@@ -1,7 +1,7 @@
 export async function getUsers() {
   try {
     const response = await fetch(
-      "http://localhost:5050/users/allUsers",
+      "https://flutter-server.onrender.com/users/allUsers",
       {
         method: "GET",
         headers: {
