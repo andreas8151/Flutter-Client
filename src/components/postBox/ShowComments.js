@@ -9,7 +9,6 @@ export default function ShowComments({ comments, redirect }) {
             Show {comments.length}{" "}
             {comments.length === 1 ? "comment" : "comments"}
           </h4>
-          <IoIosArrowForward className="summaryArrow" />
         </summary>
         <ul className="commentsList_list">
           {comments.map(function (comment, index) {

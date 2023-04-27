@@ -29,17 +29,17 @@ export default function PostBox({ post, setFeeds }) {
         <PostDelete post={post} setFeeds={setFeeds} />
       </h3>
       <PostUpdate post={post} setFeeds={setFeeds} />
-
-      <div className="postBox_details">
-        <span className="postBox_details_date">{creation}</span>
-        <PostLikes post={post} setFeeds={setFeeds} redirect={redirect} />
-      </div>
       {post.comments.length === 0 ? (
         <h5>Be the first to comment!</h5>
       ) : (
         <ShowComments comments={post.comments} redirect={redirect} />
       )}
       <AddCommentForm postID={post._id} setFeeds={setFeeds} />
+
+      <div className="postBox_details">
+        <span className="postBox_details_date">{creation}</span>
+        <PostLikes post={post} setFeeds={setFeeds} redirect={redirect} />
+      </div>
     </div>
   );
 }

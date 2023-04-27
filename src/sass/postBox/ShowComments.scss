@@ -1,16 +1,29 @@
 .commentsList {
   padding: 10px 0 0;
+  width: 400px;
+
   margin-bottom: 10px;
 
-  &_details {
-    width: 100%;
+  &_summary {
+    margin-left: 120px;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   &_list {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 4px;
     color: $white;
+    width: 380px;
+
+    //mobile
+    @media (max-width: 600px) {
+      width: 280px;
+      margin-left: 60px;
+    }
 
     &_item {
       display: flex;
@@ -20,6 +33,7 @@
       border-radius: 5px;
       padding-left: 8px;
       padding-bottom: 8px;
+
       &_user {
         font-size: 1em;
         color: rgb(160, 100, 172);

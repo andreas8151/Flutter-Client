@@ -8,7 +8,7 @@ export function AuthenticationProvider({ children }) {
   useEffect(function () {
     async function checkLoggedIn() {
       try {
-        const response = await fetch("https://flutter-server.onrender.com/authentication/", {
+        const response = await fetch("http://localhost:5050/authentication/", {
           method: "GET",
           credentials: "include",
         });

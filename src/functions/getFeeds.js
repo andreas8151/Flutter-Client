@@ -1,6 +1,6 @@
 export async function getFeeds() {
   try {
-    const response = await fetch("https://flutter-server.onrender.com/posts/following", {
+    const response = await fetch("http://localhost:5050/posts/following", {
       method: "GET",
       credentials: "include",
     });

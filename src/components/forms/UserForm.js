@@ -22,7 +22,7 @@ export default function UserForm({
   return (
     <form className="form" onSubmit={handleSubmit}>
       <h2 className="form_heading">{heading}</h2>
-      <label htmlFor="username">Username:</label>
+      <label htmlFor="username"></label>
       <input
         id="username"
         type="text"
@@ -35,7 +35,7 @@ export default function UserForm({
         required
       />
       <div className="inputPasswordRow">
-        <label htmlFor="password1">Password:</label>
+        <label htmlFor="password1"></label>
 
         {inputType1 === "password" ? (
           <BsFillEyeFill

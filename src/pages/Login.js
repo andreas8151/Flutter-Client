@@ -17,7 +17,7 @@ export default function Login() {
 
     try {
       const response = await fetch(
-        "https://flutter-server.onrender.com/authentication/login",
+        "http://localhost:5050/authentication/login",
         {
           method: "POST",
           headers: {

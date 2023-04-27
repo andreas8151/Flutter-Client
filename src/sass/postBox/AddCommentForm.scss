@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+
   &_headingLine {
     display: flex;
     flex-direction: row;
@@ -20,20 +21,35 @@
     outline: none;
     border: none;
     border-radius: 5px;
-    background-color: rgba(0, 0, 0, 0.054);
-    border: 1px solid rgba(0, 0, 0, 0.192);
-    padding: 8px;
+    background-color: rgba(118, 56, 160, 0.115);
+    border: 1px solid rgba(0, 0, 0, 0.081);
+    padding: 10px;
+    margin-top: 10px;
+    width: 400px;
+    height: 100px;
+
+    transition: 0.3s;
     resize: none;
     color: black;
     &::placeholder {
-      color: black;
+      color: rgba(0, 0, 0, 0.538);
+    }
+
+    &:focus {
+      border: 1px solid rgb(65, 135, 249);
+      background-color: rgba(65, 135, 249, 0.115);
+    }
+
+    //mobile
+    @media (max-width: 800px) {
+      width: 290px;
     }
   }
   &_button {
     @include buttonEffect;
-    margin: 10px;
+    margin-top: 20px;
     padding: 10px;
-    width: 190px;
+    width: 140px;
     background-color: rgb(65, 135, 249);
     color: $white;
     border: none;
